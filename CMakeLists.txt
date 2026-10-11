@@ -30,7 +30,7 @@ cmake_minimum_required(VERSION 3.1.0)
 project(monero-lws)
 
 enable_language(CXX)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(MONERO_LIBRARIES
@@ -113,6 +113,11 @@ endif()
 
 if ("${monero_UNBOUND_LIBRARIES}" STREQUAL "UNBOUND_LIBRARIES-NOTFOUND")
   unset(monero_UNBOUND_LIBRARIES)
+endif()
+
+if ("${monero_HIDAPI_LIBRARY}" STREQUAL "HIDAPI_LIBRARY-NOTFOUND")
+  unset(monero_HIDAPI_INCLUDE_DIR)
+  unset(monero_HIDAPI_LIBRARY)
 endif()
 
 #
@@ -250,6 +255,11 @@ foreach (LIB ${MONERO_LIBRARIES})
   
   unset(LIB_PATH CACHE)
 endforeach()
+
+if(APPLE)
+  find_library(IOKIT_LIBRARY IOKit)
+  list(APPEND IMPORTED_MONERO_LIBRARIES ${IOKIT_LIBRARY})
+endif()
 
 add_library(monero::libraries INTERFACE IMPORTED)
 set_property(TARGET monero::libraries PROPERTY

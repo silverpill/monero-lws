@@ -1,8 +1,8 @@
 # Initial base from https://github.com/sethforprivacy/monero-lws/blob/588c7f1965d3afbda8a65dc870645650e063e897/Dockerfile
 
 # Set monerod version to install from github
-ARG MONERO_BRANCH=v0.18.0.0
-ARG MONERO_COMMIT_HASH=b6a029f222abada36c7bc6c65899a4ac969d7dee
+ARG MONERO_BRANCH=v0.18.3.3
+ARG MONERO_COMMIT_HASH=81d4db08eb75ce5392c65ca6571e7b08e41b7c95
 
 # Select ubuntu:20.04 for the build image base
 FROM ubuntu:20.04 as build
@@ -23,7 +23,6 @@ RUN apt-get install --no-install-recommends -y \
     graphviz \
     libboost-all-dev \
     libexpat1-dev \
-    libhidapi-dev \
     libldns-dev \
     liblzma-dev \
     libpgm-dev \
